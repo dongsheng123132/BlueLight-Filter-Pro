@@ -1,0 +1,54 @@
+{
+  "extensionName": {
+    "message": "护眼助手",
+    "description": "扩展名称"
+  },
+  "extensionDescription": {
+    "message": "保护眼睛健康",
+    "description": "扩展描述"
+  },
+  "statusEnabled": {
+    "message": "状态：已启用",
+    "description": "启用状态文本"
+  },
+  "statusDisabled": {
+    "message": "状态：未启用",
+    "description": "禁用状态文本"
+  },
+  "enableButton": {
+    "message": "启用",
+    "description": "启用按钮文本"
+  },
+  "disableButton": {
+    "message": "禁用",
+    "description": "禁用按钮文本"
+  },
+  "backgroundColor": {
+    "message": "背景颜色",
+    "description": "背景颜色标签"
+  },
+  "textColor": {
+    "message": "文字颜色",
+    "description": "文字颜色标签"
+  },
+  "presetModes": {
+    "message": "预设模式",
+    "description": "预设模式标题"
+  },
+  "customModes": {
+    "message": "自定义模式",
+    "description": "自定义模式标题"
+  },
+  "excludeSites": {
+    "message": "排除网站（每行一个）：",
+    "description": "排除网站标签"
+  },
+  "excludeSitesPlaceholder": {
+    "message": "例如：\ngoogle.com\n*.youtube.com\nmail.qq.com",
+    "description": "排除网站输入框占位符"
+  },
+  "excludeSitesHelp": {
+    "message": "支持通配符 *，例如 *.youtube.com 会匹配所有youtube子域名",
+    "description": "排除网站帮助文本"
+  }
+} 

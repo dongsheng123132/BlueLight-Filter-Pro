@@ -1,0 +1,54 @@
+{
+  "extensionName": {
+    "message": "Eye Protection Assistant",
+    "description": "Extension name"
+  },
+  "extensionDescription": {
+    "message": "Protect your eye health",
+    "description": "Extension description"
+  },
+  "statusEnabled": {
+    "message": "Status: Enabled",
+    "description": "Enabled status text"
+  },
+  "statusDisabled": {
+    "message": "Status: Disabled",
+    "description": "Disabled status text"
+  },
+  "enableButton": {
+    "message": "Enable",
+    "description": "Enable button text"
+  },
+  "disableButton": {
+    "message": "Disable",
+    "description": "Disable button text"
+  },
+  "backgroundColor": {
+    "message": "Background Color",
+    "description": "Background color label"
+  },
+  "textColor": {
+    "message": "Text Color",
+    "description": "Text color label"
+  },
+  "presetModes": {
+    "message": "Preset Modes",
+    "description": "Preset modes title"
+  },
+  "customModes": {
+    "message": "Custom Modes",
+    "description": "Custom modes title"
+  },
+  "excludeSites": {
+    "message": "Excluded Sites (one per line):",
+    "description": "Exclude sites label"
+  },
+  "excludeSitesPlaceholder": {
+    "message": "Example:\ngoogle.com\n*.youtube.com\nmail.qq.com",
+    "description": "Exclude sites input placeholder"
+  },
+  "excludeSitesHelp": {
+    "message": "Wildcard * is supported, e.g. *.youtube.com will match all youtube subdomains",
+    "description": "Exclude sites help text"
+  }
+} 
