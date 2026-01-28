@@ -1,11 +1,11 @@
 {
   "extensionName": {
-    "message": "护眼助手",
-    "description": "扩展名称"
+    "message": "防蓝光护眼助手 Pro — 夜间模式·暗黑模式",
+    "description": "扩展名称（包含常用检索关键词）"
   },
   "extensionDescription": {
-    "message": "保护眼睛健康",
-    "description": "扩展描述"
+    "message": "过滤蓝光、启用夜间/暗黑模式与屏幕护眼调光，缓解视疲劳、提升专注、改善睡眠。功能：自定义强度、定时开关、站点白名单、通配符排除（*.domain.com），适配主流网站与单页应用。",
+    "description": "扩展描述（强化SEO与核心卖点）"
   },
   "statusEnabled": {
     "message": "状态：已启用",
@@ -14,6 +14,18 @@
   "statusDisabled": {
     "message": "状态：未启用",
     "description": "禁用状态文本"
+  },
+  "statusPrefix": {
+    "message": "状态：",
+    "description": "状态前缀"
+  },
+  "statusOn": {
+    "message": "已启用",
+    "description": "已启用状态"
+  },
+  "statusOff": {
+    "message": "未启用",
+    "description": "未启用状态"
   },
   "enableButton": {
     "message": "启用",
@@ -50,5 +62,97 @@
   "excludeSitesHelp": {
     "message": "支持通配符 *，例如 *.youtube.com 会匹配所有youtube子域名",
     "description": "排除网站帮助文本"
+  },
+  "mode_cinema": {
+    "message": "影院模式",
+    "description": "影院模式名称"
+  },
+  "mode_cinema_desc": {
+    "message": "适合：观看视频/电影",
+    "description": "影院模式描述"
+  },
+  "mode_natural": {
+    "message": "自然绿",
+    "description": "自然绿模式名称"
+  },
+  "mode_natural_desc": {
+    "message": "适合：长时间阅读/办公",
+    "description": "自然绿模式描述"
+  },
+  "mode_parchment": {
+    "message": "羊皮纸",
+    "description": "羊皮纸模式名称"
+  },
+  "mode_parchment_desc": {
+    "message": "适合：文档编辑/夜间阅读",
+    "description": "羊皮纸模式描述"
+  },
+  "mode_sky": {
+    "message": "天空蓝",
+    "description": "天空蓝模式名称"
+  },
+  "mode_sky_desc": {
+    "message": "适合：编程/数据分析",
+    "description": "天空蓝模式描述"
+  },
+  "mode_galaxy": {
+    "message": "银河白",
+    "description": "银河白模式名称"
+  },
+  "mode_galaxy_desc": {
+    "message": "适合：通用浏览/高对比需求",
+    "description": "银河白模式描述"
+  },
+  "mode_bean": {
+    "message": "深豆沙绿",
+    "description": "深豆沙绿模式名称"
+  },
+  "mode_bean_desc": {
+    "message": "适合：医疗/学术研究",
+    "description": "深豆沙绿模式描述"
+  },
+  "mode_grass": {
+    "message": "青草绿",
+    "description": "青草绿模式名称"
+  },
+  "mode_grass_desc": {
+    "message": "适合：设计/创意工作",
+    "description": "青草绿模式描述"
+  },
+  "mode_orange": {
+    "message": "暖橙光",
+    "description": "暖橙光模式名称"
+  },
+  "mode_orange_desc": {
+    "message": "适合：夜间阅读/减少蓝光",
+    "description": "暖橙光模式描述"
+  },
+  "prompt_mode_name": {
+    "message": "请输入模式名称：",
+    "description": "模式名称提示"
+  },
+  "prompt_mode_desc": {
+    "message": "请输入模式描述：",
+    "description": "模式描述提示"
+  },
+  "confirm_delete": {
+    "message": "确定要删除这个自定义模式吗？",
+    "description": "删除确认"
+  },
+  "btn_apply": {
+    "message": "应用",
+    "description": "应用按钮"
+  },
+  "btn_delete": {
+    "message": "删除",
+    "description": "删除按钮"
+  },
+  "slot_save_text": {
+    "message": "保存当前设置为自定义模式",
+    "description": "空槽位文本"
+  },
+  "page_not_supported": {
+    "message": "当前页面受限制，无法应用。请在普通网页上使用。",
+    "description": "当前页面无法被扩展修改的提示"
   }
-} 
+}

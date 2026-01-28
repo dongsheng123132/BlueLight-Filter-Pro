@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "防蓝光护眼助手 BlueLight Filter Pro",
-  "version": "3.0",
-  "description": "Protect your eye health with advanced blue light filtering | 保护眼睛健康",
+  "name": "__MSG_extensionName__",
+  "version": "3.2.0",
+  "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": [
     "storage",

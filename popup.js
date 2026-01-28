@@ -8,49 +8,59 @@ const presetModesContainer = document.getElementById('presetModes');
 const settingsContainer = document.getElementById('settingsContainer');
 const customModesContainer = document.getElementById('customModes');
 
-// 预设模式配置
-const presetModes = {
-    '影院模式': {
-        bgColor: '#000000',
-        textColor: '#FFFFFF',
-        description: '适合：观看视频/电影'
-    },
-    '自然绿': {
-        bgColor: '#C7EDCC',
-        textColor: '#000000',
-        description: '适合：长时间阅读/办公'
-    },
-    '羊皮纸': {
-        bgColor: '#F5E6CA',
-        textColor: '#333333',
-        description: '适合：文档编辑/夜间阅读'
-    },
-    '天空蓝': {
-        bgColor: '#E8F4FF',
-        textColor: '#000000',
-        description: '适合：编程/数据分析'
-    },
-    '银河白': {
-        bgColor: '#F5F5F5',
-        textColor: '#333333',
-        description: '适合：通用浏览/高对比需求'
-    },
-    '深豆沙绿': {
-        bgColor: '#E3EDCD',
-        textColor: '#333333',
-        description: '适合：医疗/学术研究'
-    },
-    '青草绿': {
-        bgColor: '#DCEED1',
-        textColor: '#333333',
-        description: '适合：设计/创意工作'
-    },
-    '暖橙光': {
-        bgColor: '#FFF2E6',
-        textColor: '#333333',
-        description: '适合：夜间阅读/减少蓝光'
-    }
-};
+// 获取预设模式配置
+function getPresetModes() {
+    return {
+        'mode_cinema': {
+            bgColor: '#000000',
+            textColor: '#FFFFFF',
+            nameKey: 'mode_cinema',
+            descKey: 'mode_cinema_desc'
+        },
+        'mode_natural': {
+            bgColor: '#C7EDCC',
+            textColor: '#000000',
+            nameKey: 'mode_natural',
+            descKey: 'mode_natural_desc'
+        },
+        'mode_parchment': {
+            bgColor: '#F5E6CA',
+            textColor: '#333333',
+            nameKey: 'mode_parchment',
+            descKey: 'mode_parchment_desc'
+        },
+        'mode_sky': {
+            bgColor: '#E8F4FF',
+            textColor: '#000000',
+            nameKey: 'mode_sky',
+            descKey: 'mode_sky_desc'
+        },
+        'mode_galaxy': {
+            bgColor: '#F5F5F5',
+            textColor: '#333333',
+            nameKey: 'mode_galaxy',
+            descKey: 'mode_galaxy_desc'
+        },
+        'mode_bean': {
+            bgColor: '#E3EDCD',
+            textColor: '#333333',
+            nameKey: 'mode_bean',
+            descKey: 'mode_bean_desc'
+        },
+        'mode_grass': {
+            bgColor: '#DCEED1',
+            textColor: '#333333',
+            nameKey: 'mode_grass',
+            descKey: 'mode_grass_desc'
+        },
+        'mode_orange': {
+            bgColor: '#FFF2E6',
+            textColor: '#333333',
+            nameKey: 'mode_orange',
+            descKey: 'mode_orange_desc'
+        }
+    };
+}
 
 // 自定义模式存储键
 const CUSTOM_MODES_KEY = 'eyecare_custom_modes';
@@ -69,15 +79,19 @@ function updateUIState(isEnabled) {
 
 // 更新状态显示
 function updateStatus(isEnabled) {
-    statusElement.textContent = `状态：${isEnabled ? '已启用' : '未启用'}`;
-    toggleBtn.textContent = isEnabled ? '禁用' : '启用';
+    const statusText = isEnabled ? chrome.i18n.getMessage('statusOn') : chrome.i18n.getMessage('statusOff');
+    statusElement.textContent = chrome.i18n.getMessage('statusPrefix') + statusText;
+    
+    toggleBtn.textContent = isEnabled ? chrome.i18n.getMessage('disableButton') : chrome.i18n.getMessage('enableButton');
+    toggleBtn.dataset.enabled = isEnabled;
     updateUIState(isEnabled);
 }
 
 // 初始化预设模式按钮
 function initPresetModes() {
     presetModesContainer.innerHTML = '';
-    Object.entries(presetModes).forEach(([name, config]) => {
+    const modes = getPresetModes();
+    Object.entries(modes).forEach(([key, config]) => {
         const button = document.createElement('button');
         button.className = 'mode-button';
         
@@ -85,17 +99,20 @@ function initPresetModes() {
         button.style.backgroundColor = config.bgColor;
         button.style.color = config.textColor;
         
+        const name = chrome.i18n.getMessage(config.nameKey);
+        const desc = chrome.i18n.getMessage(config.descKey);
+        
         button.innerHTML = `
             <div>${name}</div>
-            <div class="mode-info">${config.description}</div>
+            <div class="mode-info">${desc}</div>
         `;
-        button.onclick = () => applyPresetMode(name, config);
+        button.onclick = () => applyPresetMode(key, config, name);
         presetModesContainer.appendChild(button);
     });
 }
 
 // 应用预设模式
-function applyPresetMode(name, config) {
+function applyPresetMode(key, config, name) {
     bgColorInput.value = config.bgColor;
     textColorInput.value = config.textColor;
     
@@ -116,6 +133,19 @@ function applySettings() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (!tabs[0]) {
             console.error('没有找到活动标签页');
+            return;
+        }
+        
+        const url = tabs[0].url || '';
+        const restricted = url.startsWith('chrome://') 
+            || url.startsWith('edge://') 
+            || url.startsWith('about:')
+            || url.startsWith('chrome-extension://')
+            || url.includes('chrome.google.com/webstore');
+        if (restricted) {
+            const msg = chrome.i18n.getMessage('page_not_supported') || '当前页面不支持扩展，请在普通网页上使用';
+            statusElement.textContent = msg;
+            updateUIState(false);
             return;
         }
 
@@ -160,7 +190,7 @@ function saveSettings() {
         excludedUrls: excludedUrlsInput.value.split('\n')
             .map(url => url.trim())
             .filter(url => url !== ''),
-        isEnabled: document.getElementById('toggleBtn').textContent === '禁用'
+        isEnabled: toggleBtn.dataset.enabled === 'true'
     };
     
     chrome.storage.local.set(settings, () => {
@@ -225,6 +255,14 @@ function renderCustomModes() {
         const slot = document.createElement('div');
         slot.className = 'custom-mode-slot empty';
         slot.onclick = () => saveCustomMode(i);
+        
+        // Add localized text for empty slot
+        const textSpan = document.createElement('span');
+        textSpan.style.fontSize = '12px';
+        textSpan.style.color = '#666';
+        textSpan.textContent = chrome.i18n.getMessage('slot_save_text');
+        slot.appendChild(textSpan);
+        
         customModesContainer.appendChild(slot);
     }
     
@@ -232,6 +270,10 @@ function renderCustomModes() {
     customModes.forEach((mode, index) => {
         const modeElement = document.createElement('div');
         modeElement.className = 'custom-mode-item';
+        
+        const applyText = chrome.i18n.getMessage('btn_apply');
+        const deleteText = chrome.i18n.getMessage('btn_delete');
+        
         modeElement.innerHTML = `
             <div class="custom-mode-name">${mode.name}</div>
             <div class="custom-mode-desc">${mode.description}</div>
@@ -240,8 +282,8 @@ function renderCustomModes() {
                 <div class="custom-mode-color" style="background-color: ${mode.textColor}"></div>
             </div>
             <div class="custom-mode-actions">
-                <button class="custom-mode-btn apply">应用</button>
-                <button class="custom-mode-btn delete">删除</button>
+                <button class="custom-mode-btn apply">${applyText}</button>
+                <button class="custom-mode-btn delete">${deleteText}</button>
             </div>
         `;
 
@@ -258,10 +300,10 @@ function renderCustomModes() {
 
 // 保存自定义模式
 function saveCustomMode(index) {
-    const name = prompt('请输入模式名称：');
+    const name = prompt(chrome.i18n.getMessage('prompt_mode_name'));
     if (!name) return;
     
-    const description = prompt('请输入模式描述：');
+    const description = prompt(chrome.i18n.getMessage('prompt_mode_desc'));
     if (!description) return;
     
     const newMode = {
@@ -297,7 +339,7 @@ function applyCustomMode(index) {
 
 // 删除自定义模式
 function deleteCustomMode(index) {
-    if (confirm('确定要删除这个自定义模式吗？')) {
+    if (confirm(chrome.i18n.getMessage('confirm_delete'))) {
         customModes.splice(index, 1);
         chrome.storage.local.set({ [CUSTOM_MODES_KEY]: customModes }, () => {
             renderCustomModes();
@@ -311,7 +353,8 @@ function initSettings() {
         bgColorInput.value = result.bgColor || '#FFFFFF';
         textColorInput.value = result.textColor || '#000000';
         excludedUrlsInput.value = Array.isArray(result.excludedUrls) ? result.excludedUrls.join('\n') : '';
-        updateStatus(result.isEnabled);
+        // 确保 status 正确初始化
+        updateStatus(result.isEnabled !== false); // 默认为 true
         initCustomModes();
     });
 }
@@ -327,7 +370,9 @@ toggleBtn.addEventListener('click', function() {
             console.error('获取状态失败:', chrome.runtime.lastError);
             return;
         }
-        const isEnabled = !result.isEnabled;
+        // 处理首次运行可能是 undefined 的情况
+        const currentEnabled = result.isEnabled !== false;
+        const isEnabled = !currentEnabled;
         
         // 保存所有设置，包括新的启用状态
         const settings = {

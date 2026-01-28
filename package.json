@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "护眼助手扩展",
   "scripts": {
-    "generate-icons": "node generate_icons.js"
+    "generate-icons": "node generate_icons.js",
+    "test": "node test_extension.js",
+    "build-zip": "rm -f bluelight-filter-pro.zip && zip -r bluelight-filter-pro.zip . -x \"node_modules/*\" \"node_modules/**\" \".git/*\" \".git/**\" \".github/*\" \".github/**\" \"test_extension.js\" \"package-lock.json\""
   },
-  "dependencies": {
-    "canvas": "^2.11.2"
+  "devDependencies": {
+    "puppeteer": "^24.36.1"
   }
-} 
+}

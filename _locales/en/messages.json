@@ -1,11 +1,11 @@
 {
   "extensionName": {
-    "message": "Eye Protection Assistant",
-    "description": "Extension name"
+    "message": "BlueLight Filter Pro — Eye Care, Night & Dark Mode",
+    "description": "Extension name with rich ASO keywords"
   },
   "extensionDescription": {
-    "message": "Protect your eye health",
-    "description": "Extension description"
+    "message": "Block blue light and protect your eyes with Night Mode, Dark Mode, and Screen Dimmer. Reduce eye strain, improve sleep, and keep focus. Includes: Custom intensity, Scheduling, Per‑site Whitelist, Wildcard exclusions (*.domain.com). Works across most websites and single‑page apps.",
+    "description": "Extension description optimized for ASO discoverability"
   },
   "statusEnabled": {
     "message": "Status: Enabled",
@@ -14,6 +14,18 @@
   "statusDisabled": {
     "message": "Status: Disabled",
     "description": "Disabled status text"
+  },
+  "statusPrefix": {
+    "message": "Status: ",
+    "description": "Status prefix text"
+  },
+  "statusOn": {
+    "message": "Enabled",
+    "description": "Enabled status word"
+  },
+  "statusOff": {
+    "message": "Disabled",
+    "description": "Disabled status word"
   },
   "enableButton": {
     "message": "Enable",
@@ -50,5 +62,97 @@
   "excludeSitesHelp": {
     "message": "Wildcard * is supported, e.g. *.youtube.com will match all youtube subdomains",
     "description": "Exclude sites help text"
+  },
+  "mode_cinema": {
+    "message": "Cinema",
+    "description": "Cinema mode name"
+  },
+  "mode_cinema_desc": {
+    "message": "Best for: Videos/Movies",
+    "description": "Cinema mode description"
+  },
+  "mode_natural": {
+    "message": "Natural Green",
+    "description": "Natural Green mode name"
+  },
+  "mode_natural_desc": {
+    "message": "Best for: Reading/Office",
+    "description": "Natural Green mode description"
+  },
+  "mode_parchment": {
+    "message": "Parchment",
+    "description": "Parchment mode name"
+  },
+  "mode_parchment_desc": {
+    "message": "Best for: Editing/Night Reading",
+    "description": "Parchment mode description"
+  },
+  "mode_sky": {
+    "message": "Sky Blue",
+    "description": "Sky Blue mode name"
+  },
+  "mode_sky_desc": {
+    "message": "Best for: Coding/Data",
+    "description": "Sky Blue mode description"
+  },
+  "mode_galaxy": {
+    "message": "Galaxy White",
+    "description": "Galaxy White mode name"
+  },
+  "mode_galaxy_desc": {
+    "message": "Best for: General/High Contrast",
+    "description": "Galaxy White mode description"
+  },
+  "mode_bean": {
+    "message": "Bean Green",
+    "description": "Bean Green mode name"
+  },
+  "mode_bean_desc": {
+    "message": "Best for: Medical/Academic",
+    "description": "Bean Green mode description"
+  },
+  "mode_grass": {
+    "message": "Grass Green",
+    "description": "Grass Green mode name"
+  },
+  "mode_grass_desc": {
+    "message": "Best for: Design/Creative",
+    "description": "Grass Green mode description"
+  },
+  "mode_orange": {
+    "message": "Warm Orange",
+    "description": "Warm Orange mode name"
+  },
+  "mode_orange_desc": {
+    "message": "Best for: Night/Blue Light Reduction",
+    "description": "Warm Orange mode description"
+  },
+  "prompt_mode_name": {
+    "message": "Enter mode name:",
+    "description": "Prompt for mode name"
+  },
+  "prompt_mode_desc": {
+    "message": "Enter mode description:",
+    "description": "Prompt for mode description"
+  },
+  "confirm_delete": {
+    "message": "Are you sure you want to delete this custom mode?",
+    "description": "Confirm delete message"
+  },
+  "btn_apply": {
+    "message": "Apply",
+    "description": "Apply button text"
+  },
+  "btn_delete": {
+    "message": "Delete",
+    "description": "Delete button text"
+  },
+  "slot_save_text": {
+    "message": "Save current settings as custom mode",
+    "description": "Text for empty custom mode slot"
+  },
+  "page_not_supported": {
+    "message": "This page is restricted. Please use on a regular website.",
+    "description": "Message when current page cannot be modified by extensions"
   }
-} 
+}

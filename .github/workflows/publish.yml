@@ -1,0 +1,51 @@
+name: Publish to Chrome Web Store
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create zip artifact
+        run: |
+          rm -f bluelight-filter-pro.zip
+          zip -r bluelight-filter-pro.zip . \
+            -x "node_modules/**" \
+               ".git/**" \
+               ".github/**" \
+               "test_extension.js" \
+               "package-lock.json"
+          ls -lh bluelight-filter-pro.zip
+
+      - name: Upload to Chrome Web Store
+        run: |
+          npx chrome-webstore-upload-cli upload \
+            --extension-id "${{ env.EXTENSION_ID }}" \
+            --client-id "${{ secrets.CHROME_CLIENT_ID }}" \
+            --client-secret "${{ secrets.CHROME_CLIENT_SECRET }}" \
+            --refresh-token "${{ secrets.CHROME_REFRESH_TOKEN }}" \
+            --asset "bluelight-filter-pro.zip"
+        env:
+          EXTENSION_ID: cefolelfbacmljhmddlbmdnlakblagjj
+
+      - name: Publish Chrome Web Store
+        run: |
+          npx chrome-webstore-upload-cli publish \
+            --extension-id "${{ env.EXTENSION_ID }}" \
+            --client-id "${{ secrets.CHROME_CLIENT_ID }}" \
+            --client-secret "${{ secrets.CHROME_CLIENT_SECRET }}" \
+            --refresh-token "${{ secrets.CHROME_REFRESH_TOKEN }}"
+        env:
+          EXTENSION_ID: cefolelfbacmljhmddlbmdnlakblagjj
+
