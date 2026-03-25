@@ -1,0 +1,21 @@
+# MCP Performance Summary (Chrome Developers Site)
+Timestamp: 2025-10-21T00:00:00Z (local run)
+Page: https://developer.chrome.com/?hl=zh-cn
+
+Raw summary (from MCP):
+The performance trace has been stopped.
+## Summary of Performance trace findings:
+URL: https://developer.chrome.com/?hl=zh-cn
+Bounds: {min: 449213670597, max: 449220270339}
+CPU throttling: none
+Network throttling: none
+Metrics (lab / observed):
+  - CLS: 0.00
+Metrics (field / real users): n/a – no data for this page in CrUX
+Available insights:
+  - insight name: ThirdParties
+    description: 3rd party code can significantly impact load performance. [Reduce and defer loading of 3rd party code](https://web.dev/articles/optimizing-content-efficiency-loading-third-party-javascript/) to prioritize your page's content.
+    relevant trace bounds: {min: 449217786405, max: 449219184598}
+    example question: Which third parties are having the largest impact on my page performance?
+
+Note: This file records the raw summary as printed by MCP performance_stop_trace.

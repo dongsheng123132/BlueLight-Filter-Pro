@@ -5,7 +5,7 @@
     <title data-i18n="extensionName">护眼助手</title>
     <style>
         body {
-            width: 400px;
+            width: min(520px, 95vw);
             padding: 20px;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,35 +13,62 @@
         .container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 15px;
+            padding: 14px 18px;
             background-color: #f5f5f5;
-            border-radius: 4px;
-        }
-        .header h2 {
-            margin: 0;
-            font-size: 18px;
-            color: #333;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .status {
-            margin: 0 20px;
-            font-size: 14px;
+            margin: 0 18px;
+            font-size: 1em;
             color: #666;
-            white-space: nowrap;
+            white-space: normal;
+            flex: 1 1 auto;
+            min-width: 140px;
         }
         #toggleBtn {
-            padding: 8px 16px;
+            padding: 10px 18px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 1.08em;
+            min-width: 96px;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 1.35em;
+            color: #222;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .status {
+            margin: 0 18px;
+            font-size: 1em;
+            color: #666;
+            white-space: nowrap;
+        }
+        #toggleBtn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.08em;
         }
         #toggleBtn:hover {
             background-color: #45a049;
@@ -49,35 +76,46 @@
         #toggleBtn:disabled {
             background-color: #cccccc;
         }
+        #langSelect {
+            min-width: 120px;
+            max-width: 180px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-left: 10px;
+        }
         .settings {
-            padding: 15px;
+            padding: 18px;
             background-color: #fff;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
+            margin-bottom: 18px;
         }
         .settings-disabled {
             opacity: 0.5;
             pointer-events: none;
         }
         .mode-section {
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
         .mode-section h3 {
-            margin: 0 0 15px 0;
-            font-size: 16px;
-            color: #333;
+            margin: 0 0 18px 0;
+            font-size: 1.15em;
+            color: #222;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
         .color-picker {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 22px;
         }
         .color-picker label {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            font-size: 14px;
+            font-size: 1em;
         }
         .color-picker input[type="color"] {
             width: 100%;
@@ -89,16 +127,27 @@
         .preset-modes {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 14px;
+            min-width: 0;
         }
         .mode-button {
-            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 70px;
+            padding: 14px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: #fff;
             cursor: pointer;
             text-align: left;
             transition: all 0.2s;
+            word-break: break-word;
+            white-space: normal;
+            font-size: 1em;
+            overflow-wrap: anywhere;
+            min-width: 0;
+            box-sizing: border-box;
         }
         .mode-button:hover {
             transform: scale(1.02);
@@ -108,10 +157,21 @@
             border: 2px solid #4CAF50;
             background-color: #e8f5e9;
         }
+        .mode-button div[data-i18n] {
+            font-size: 1.08em;
+            font-weight: bold;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            word-break: break-word;
+            white-space: normal;
+        }
         .mode-info {
-            font-size: 12px;
+            font-size: 0.97em;
             color: #666;
-            margin-top: 5px;
+            margin-top: 0;
+            line-height: 1.3;
+            word-break: break-word;
+            white-space: normal;
         }
         .exclude-sites {
             margin-top: 15px;
@@ -137,13 +197,13 @@
         .custom-modes {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+            gap: 12px;
+            margin-top: 12px;
         }
         .custom-mode-slot {
-            padding: 12px;
+            padding: 14px;
             border: 2px dashed #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: #f9f9f9;
             cursor: pointer;
             text-align: center;
@@ -165,14 +225,13 @@
             margin-bottom: 8px;
         }
         .custom-mode-slot.empty::after {
-            content: "保存当前设置为自定义模式";
             font-size: 12px;
             color: #666;
         }
         .custom-mode-item {
-            padding: 12px;
+            padding: 14px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: #fff;
             cursor: pointer;
             transition: all 0.2s;
@@ -190,7 +249,7 @@
             margin-bottom: 5px;
         }
         .custom-mode-desc {
-            font-size: 12px;
+            font-size: 0.97em;
             color: #666;
             margin-bottom: 8px;
         }
@@ -211,10 +270,10 @@
             margin-top: 8px;
         }
         .custom-mode-btn {
-            padding: 4px 8px;
+            padding: 4px 10px;
             border: none;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 1em;
             cursor: pointer;
             transition: background-color 0.2s;
         }
@@ -232,52 +291,149 @@
         .custom-mode-btn.delete:hover {
             background-color: #d32f2f;
         }
+        .popup-footer {
+            margin-top: 10px;
+            padding-top: 5px;
+            text-align: right;
+        }
+        #optionsBtn {
+            margin-left: 0;
+            padding: 5px 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #555;
+            transition: color 0.2s;
+        }
+        #optionsBtn:hover {
+            color: #1a73e8;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2 data-i18n="extensionName">护眼助手</h2>
-            <div class="status" id="status" data-i18n="statusDisabled">状态：未启用</div>
+            <h2 data-i18n="popupTitle">护眼助手</h2>
+            <div class="status" id="status"><span data-i18n="statusLabel">状态：</span><span id="statusText" data-i18n="statusDisabled">未启用</span></div>
             <button id="toggleBtn" data-i18n="enableButton">启用</button>
+            <select id="langSelect" style="margin-left:8px; padding:4px 8px; border-radius:4px;">
+              <option value="en">English</option>
+              <option value="zh_CN">简体中文</option>
+              <option value="es">Español</option>
+              <option value="pt_BR">Português</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="ru">Русский</option>
+            </select>
+        </div>
+
+        <div id="siteThemeTip" style="display:none; padding:12px 14px; background-color:#fff8e1; border:1px solid #f0d58c; border-radius:8px;">
+            <div data-i18n="siteTipTitle" style="font-weight:bold; margin-bottom:8px;">站点主题提示</div>
+            <div id="siteTipGoogle" data-i18n="siteTipDescGoogle" style="display:none; margin-bottom:8px;">Google 站点有独立的暗色主题。若关闭扩展后页面仍偏黑，请在“外观（Appearance）”选择“浅色主题”或“跟随设备主题”。</div>
+            <div id="siteTipYouTube" data-i18n="siteTipDescYouTube" style="display:none; margin-bottom:8px;">YouTube 站点有自己的外观设置。若关闭扩展后页面仍偏黑，请通过头像菜单 → 外观，选择“浅色主题”。</div>
+            <div style="display:flex; gap:8px;">
+                <button id="openGooglePrefsBtn" data-i18n="openGoogleThemeSettings" style="display:none; padding:6px 10px; border:1px solid #f0d58c; background:#fff; border-radius:4px; cursor:pointer;">打开 Google</button>
+                <button id="openYouTubeBtn" data-i18n="openYouTubeHome" style="display:none; padding:6px 10px; border:1px solid #f0d58c; background:#fff; border-radius:4px; cursor:pointer;">打开 YouTube</button>
+            </div>
         </div>
         
         <div class="settings" id="settingsContainer">
             <div class="color-picker">
                 <label>
-                    <span data-i18n="backgroundColor">背景颜色</span>
+                    <span data-i18n="backgroundColorLabel">背景颜色</span>
                     <input type="color" id="bgColor" value="#FFFFFF">
                 </label>
                 <label>
-                    <span data-i18n="textColor">文字颜色</span>
+                    <span data-i18n="textColorLabel">文字颜色</span>
                     <input type="color" id="textColor" value="#000000">
                 </label>
             </div>
             
             <div class="mode-section">
-                <h3 data-i18n="presetModes">预设模式</h3>
-                <div class="preset-modes" id="presetModes">
-                    <!-- 预设模式按钮将通过JavaScript动态添加 -->
-                </div>
+                <h3 data-i18n="presetModesTitle">预设模式</h3>
+                <div class="preset-modes" id="presetModes"></div>
             </div>
             
             <div class="mode-section">
-                <h3 data-i18n="customModes">自定义模式</h3>
-                <div class="custom-modes" id="customModes">
-                    <!-- 自定义模式将通过JavaScript动态添加 -->
-                </div>
+                <h3 data-i18n="customModesTitle">自定义模式</h3>
+                <div class="custom-modes" id="customModes"></div>
             </div>
-            
-            <div class="exclude-sites">
-                <label for="excludedUrls" data-i18n="excludeSites">排除网站（每行一个）：</label>
-                <textarea id="excludedUrls" class="exclude-urls" rows="3" data-i18n-placeholder="excludeSitesPlaceholder"></textarea>
-                <div class="help-text" data-i18n="excludeSitesHelp">
-                    支持通配符 *，例如 *.youtube.com 会匹配所有youtube子域名
+        </div>
+
+        <footer class="popup-footer">
+            <button id="optionsBtn" title="Settings" data-i18n-title="optionsButtonTooltip">⚙️</button>
+        </footer>
                 </div>
+
+    <!-- Custom Mode Save Modal -->
+    <div id="customModeModal" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background-color:white; padding:25px; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2); width:350px;">
+            <h3 data-i18n="customModeModalTitle" style="margin-top:0; margin-bottom:20px; font-size:1.3em;">保存自定义模式</h3>
+            <div>
+                <label for="customModeNameInput" data-i18n="customModeNameLabel" style="display:block; margin-bottom:5px;">模式名称:</label>
+                <input type="text" id="customModeNameInput" style="width:calc(100% - 16px); padding:8px; margin-bottom:15px; border:1px solid #ddd; border-radius:4px;">
+                <span id="customModeNameError" style="color:red; font-size:0.9em; display:none;"></span>
+            </div>
+            <div>
+                <label for="customModeDescInput" data-i18n="customModeDescLabel" style="display:block; margin-bottom:5px;">模式描述 (可选):</label>
+                <textarea id="customModeDescInput" rows="3" style="width:calc(100% - 16px); padding:8px; margin-bottom:20px; border:1px solid #ddd; border-radius:4px; resize:vertical;"></textarea>
+                </div>
+            <div style="text-align:right;">
+                <button id="cancelCustomModeBtn" data-i18n="customModeCancelBtn" style="padding:8px 15px; border:1px solid #ccc; border-radius:4px; background-color:#eee; cursor:pointer; margin-right:10px;">取消</button>
+                <button id="saveCustomModeModalBtn" data-i18n="customModeSaveBtn" style="padding:8px 15px; border:none; border-radius:4px; background-color:#4CAF50; color:white; cursor:pointer;">保存</button>
             </div>
         </div>
     </div>
+
+    <!-- Preview-only chrome API polyfill to avoid errors outside extension -->
+    <script>(function(){
+      if (typeof window.chrome === 'undefined') window.chrome = {};
+      var c = window.chrome;
+      c.runtime = c.runtime || {};
+      c.runtime.getURL = c.runtime.getURL || function(p){ return p; };
+      c.runtime.openOptionsPage = c.runtime.openOptionsPage || function(){ window.open('options.html'); };
+      c.runtime.lastError = null;
+      c.storage = c.storage || { local: {} };
+      c.storage.onChanged = c.storage.onChanged || { addListener: function(fn){ /* noop for preview */ } };
+      if (!c.storage.local.get) c.storage.local.get = function(keys, cb){
+        var result = {};
+        var arr = Array.isArray(keys) ? keys : (keys ? [keys] : Object.keys(localStorage));
+        for (var i=0;i<arr.length;i++){
+          var k = arr[i];
+          var v = localStorage.getItem(k);
+          var parsed;
+          try{ parsed = JSON.parse(v); }catch(e){ parsed = v; }
+          result[k] = parsed;
+        }
+        cb(result);
+      };
+      if (!c.storage.local.set) c.storage.local.set = function(items, cb){
+        for (var k in items){
+          try { localStorage.setItem(k, JSON.stringify(items[k])); } catch(e) { localStorage.setItem(k, items[k]); }
+        }
+        if (cb) cb();
+      };
+      c.tabs = c.tabs || {};
+      c.tabs.query = c.tabs.query || function(opts, cb){ cb([{ id: 1, url: window.location.href, active: true }]); };
+      c.tabs.sendMessage = c.tabs.sendMessage || function(tabId, msg, cb){ if (cb) cb({ ok: true }); };
+      c.tabs.create = c.tabs.create || function(obj){ if (obj && obj.url) window.open(obj.url, '_blank'); };
+      c.scripting = c.scripting || {};
+      c.scripting.executeScript = c.scripting.executeScript || function(options, cb){ if (cb) cb([{ result: true }]); };
+      c.i18n = c.i18n || {};
+      c.i18n.getUILanguage = c.i18n.getUILanguage || function(){ return localStorage.getItem('ui_lang') || 'zh_CN'; };
+      c.i18n.getMessage = c.i18n.getMessage || function(key){
+        var m = '';
+        try {
+          if (window.__localeMessages && window.__localeMessages[key] && window.__localeMessages[key].message) {
+            m = window.__localeMessages[key].message;
+          }
+        } catch(e) {}
+        return m;
+      };
+    })();</script>
     <script src="translations.js"></script>
+    <script src="utils.js"></script>
     <script src="popup.js"></script>
 </body>
-</html> 
+</html>

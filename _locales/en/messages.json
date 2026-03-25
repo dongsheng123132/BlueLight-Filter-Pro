@@ -1,54 +1,224 @@
 {
   "extensionName": {
-    "message": "Eye Protection Assistant",
-    "description": "Extension name"
+    "message": "BlueLight Filter Pro",
+    "description": "The name of the extension."
   },
   "extensionDescription": {
-    "message": "Protect your eye health",
-    "description": "Extension description"
+    "message": "Protect your eye health by filtering blue light.",
+    "description": "The description of the extension."
+  },
+  "popupTitle": {
+    "message": "BlueLight Filter Pro",
+    "description": "Title shown in the popup header."
+  },
+  "statusLabel": {
+    "message": "Status:",
+    "description": "Label for the status display."
   },
   "statusEnabled": {
-    "message": "Status: Enabled",
-    "description": "Enabled status text"
+    "message": "Enabled",
+    "description": "Status text when enabled."
   },
   "statusDisabled": {
-    "message": "Status: Disabled",
-    "description": "Disabled status text"
+    "message": "Disabled",
+    "description": "Status text when disabled."
   },
   "enableButton": {
     "message": "Enable",
-    "description": "Enable button text"
+    "description": "Text for the enable button."
   },
   "disableButton": {
     "message": "Disable",
-    "description": "Disable button text"
+    "description": "Text for the disable button."
   },
-  "backgroundColor": {
+  "backgroundColorLabel": {
     "message": "Background Color",
-    "description": "Background color label"
+    "description": "Label for background color picker."
   },
-  "textColor": {
+  "textColorLabel": {
     "message": "Text Color",
-    "description": "Text color label"
+    "description": "Label for text color picker."
   },
-  "presetModes": {
+  "presetModesTitle": {
     "message": "Preset Modes",
-    "description": "Preset modes title"
+    "description": "Title for the preset modes section."
   },
-  "customModes": {
+  "customModesTitle": {
     "message": "Custom Modes",
-    "description": "Custom modes title"
+    "description": "Title for the custom modes section."
   },
-  "excludeSites": {
-    "message": "Excluded Sites (one per line):",
-    "description": "Exclude sites label"
+  "saveCustomModePlaceholder": {
+    "message": "Save current settings as custom mode",
+    "description": "Placeholder text for the empty custom mode slot."
   },
-  "excludeSitesPlaceholder": {
-    "message": "Example:\ngoogle.com\n*.youtube.com\nmail.qq.com",
-    "description": "Exclude sites input placeholder"
+  "customModeApply": {
+    "message": "Apply",
+    "description": "Apply button for custom mode."
   },
-  "excludeSitesHelp": {
-    "message": "Wildcard * is supported, e.g. *.youtube.com will match all youtube subdomains",
-    "description": "Exclude sites help text"
-  }
-} 
+  "customModeDelete": {
+    "message": "Delete",
+    "description": "Delete button for custom mode."
+  },
+  "confirmDeleteCustomMode": {
+    "message": "Are you sure you want to delete this custom mode?",
+    "description": "Confirmation message before deleting a custom mode."
+  },
+  "promptCustomModeName": {
+    "message": "Enter mode name:",
+    "description": "Prompt message for custom mode name."
+  },
+  "promptCustomModeDesc": {
+    "message": "Enter mode description:",
+    "description": "Prompt message for custom mode description."
+  },
+  "presetCinema": { "message": "Cinema Mode", "description": "Preset mode name" },
+  "presetCinemaDesc": { "message": "Good for watching videos/movies", "description": "Preset mode description" },
+  "presetNature": { "message": "Nature Green", "description": "Preset mode name" },
+  "presetNatureDesc": { "message": "Good for long reading/office work", "description": "Preset mode description" },
+  "presetParchment": { "message": "Parchment", "description": "Preset mode name" },
+  "presetParchmentDesc": { "message": "Good for document editing/night reading", "description": "Preset mode description" },
+  "presetSkyBlue": { "message": "Sky Blue", "description": "Preset mode name" },
+  "presetSkyBlueDesc": { "message": "Good for programming/data analysis", "description": "Preset mode description" },
+  "presetGalaxyWhite": { "message": "Galaxy White", "description": "Preset mode name" },
+  "presetGalaxyWhiteDesc": { "message": "Good for general browsing/high contrast needs", "description": "Preset mode description" },
+  "presetDeepBean": { "message": "Deep Bean Green", "description": "Preset mode name" },
+  "presetDeepBeanDesc": { "message": "Good for medical/academic research", "description": "Preset mode description" },
+  "presetGrassGreen": { "message": "Grass Green", "description": "Preset mode name" },
+  "presetGrassGreenDesc": { "message": "Good for design/creative work", "description": "Preset mode description" },
+  "presetWarmOrange": { "message": "Warm Orange", "description": "Preset mode name" },
+  "presetWarmOrangeDesc": { "message": "Good for night reading/reducing blue light", "description": "Preset mode description" },
+  "langSwitchBtn": { "message": "Switch Language", "description": "Tooltip for language switch button" },
+  "optionsPageTitle": {
+    "message": "Eye Care Assistant - Settings & Help",
+    "description": "Title of the options page."
+  },
+  "optionsHeader": {
+    "message": "Eye Care Assistant Settings & Help",
+    "description": "Main header on the options page."
+  },
+  "aboutTitle": {
+    "message": "About Eye Care Assistant",
+    "description": "Title for the 'About' section."
+  },
+  "aboutText1": {
+    "message": "This software aims to provide users with an intelligent eye care assistant, helping to reduce fatigue caused by prolonged screen time. It is particularly suitable for opening various documents, PDF files, and e-books in eye-protection mode. Core features include...",
+    "description": "First paragraph of the 'About' section."
+  },
+  "aboutText2": {
+    "message": "1. Eye Protection Mode: Activates optimal eye conditions (preset work modes, time periods, etc.) to convert the screen into an eye-friendly mode, offering adjustments for mode, color, and brightness to protect vision.",
+    "description": "Second paragraph (Feature 1)."
+  },
+  "aboutText3": {
+    "message": "2. PDF Reader Integration: Users can directly access PDF files seamlessly connected to their work content within the workspace. The interface adapts automatically, improving the experience with content-based filtering, suggestions, and overall responsiveness, finally allowing direct operations within different files.",
+    "description": "Third paragraph (Feature 2)."
+  },
+  "aboutText4": {
+    "message": "By reasonably arranging work and rest times, it helps reduce eye fatigue, improving work efficiency and quality of life. Freely adjust various color parameters for quick application, creating comfortable multi-mode options.",
+    "description": "Fourth paragraph (Benefit summary)."
+  },
+  "featuresTitle": {
+    "message": "Main Features",
+    "description": "Title for the 'Features' section."
+  },
+  "feature1": {
+    "message": "Multiple preset eye protection modes, one-click switch.",
+    "description": "Feature list item 1."
+  },
+  "feature2": {
+    "message": "Supports custom background and text colors.",
+    "description": "Feature list item 2."
+  },
+  "feature3": {
+    "message": "Save frequently used settings as custom modes.",
+    "description": "Feature list item 3."
+  },
+  "feature4": {
+    "message": "Supports multiple interface languages.",
+    "description": "Feature list item 4."
+  },
+  "feature5": {
+    "message": "Simple and easy-to-use interface.",
+    "description": "Feature list item 5."
+  },
+  "usageTitle": {
+    "message": "How to Use",
+    "description": "Title for the 'How to Use' section."
+  },
+  "usageStep1": {
+    "message": "1. Click the extension icon in the browser toolbar to open the control panel.",
+    "description": "Usage step 1."
+  },
+  "usageStep2": {
+    "message": "2. In the control panel, you can enable or disable the eye protection mode.",
+    "description": "Usage step 2."
+  },
+  "usageStep3": {
+    "message": "3. Select a preset mode or customize the background and text colors using the color pickers.",
+    "description": "Usage step 3."
+  },
+  "usageStep4": {
+    "message": "4. You can save your preferred settings as a custom mode for quick access.",
+    "description": "Usage step 4."
+  },
+  "usageStep5": {
+    "message": "5. Switch the interface language using the dropdown menu in the top right corner.",
+    "description": "Usage step 5."
+  },
+  "versionTitle": {
+    "message": "Version Information",
+    "description": "Title for the 'Version' section."
+  },
+  "versionLabel": {
+    "message": "Current Version:",
+    "description": "Label for the version number."
+  },
+  "footerText": {
+    "message": "Thanks for using Eye Care Assistant!",
+    "description": "Footer text on the options page."
+  },
+  "optionsButtonTooltip": {
+    "message": "Settings & Help",
+    "description": "Tooltip for the settings button in the popup."
+  },
+  "customModeModalTitle": {
+    "message": "Save Custom Mode",
+    "description": "Title for the custom mode saving modal."
+  },
+  "customModeNameLabel": {
+    "message": "Mode Name:",
+    "description": "Label for the mode name input in the modal."
+  },
+  "customModeDescLabel": {
+    "message": "Mode Description (Optional):",
+    "description": "Label for the mode description input in the modal."
+  },
+  "customModeCancelBtn": {
+    "message": "Cancel",
+    "description": "Text for the cancel button in the modal."
+  },
+  "customModeSaveBtn": {
+    "message": "Save",
+    "description": "Text for the save button in the modal."
+  },
+  "errorCustomModeNameEmpty": {
+    "message": "Mode name cannot be empty",
+    "description": "Error message when custom mode name is left empty."
+  },
+  "feedbackTitle": {
+    "message": "Feedback",
+    "description": "Title for the Feedback section on options page."
+  },
+  "feedbackText": {
+    "message": "We value your feedback greatly. Please contact us with any suggestions or issues via:",
+    "description": "Introductory text for the Feedback section."
+  },
+  "feedbackEmailLabel": {
+    "message": "Email:",
+    "description": "Label for the feedback email address."
+  },
+  "siteTipTitle": { "message": "Site Theme Tip", "description": "Site tip title." },
+  "siteTipDescGoogle": { "message": "Google has its own dark theme. If pages stay dark after disabling the extension, set Appearance to Light or Follow device theme.", "description": "Google theme tip." },
+  "siteTipDescYouTube": { "message": "YouTube uses its own theme. If it stays dark after disabling, change Appearance to Light in the avatar menu.", "description": "YouTube theme tip." },
+  "openGoogleThemeSettings": { "message": "Open Google", "description": "Button to open Google." },
+  "openYouTubeHome": { "message": "Open YouTube", "description": "Button to open YouTube." }
+}

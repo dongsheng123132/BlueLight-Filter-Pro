@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>防蓝光护眼助手 | 一次版本迭代与商店素材生成记（2025-10-21）</title>
+  <meta name="description" content="BlueLight Filter Pro 今天的工作记录：脚本修复与本地化截图生成、版本号升级到 1.33、重新打包和可下载链接。" />
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; margin: 0; padding: 24px; line-height: 1.6; }
+    header { max-width: 960px; margin: 0 auto 24px; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    .sub { color: #666; font-size: 14px; }
+    main { max-width: 960px; margin: 0 auto; }
+    section { margin: 24px 0; }
+    a { color: #0b5bd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: #f6f8fa; padding: 2px 6px; border-radius: 4px; }
+    ul { padding-left: 18px; }
+    figure { margin: 16px 0; }
+    figcaption { font-size: 12px; color: #555; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .gallery img { width: 100%; height: auto; border: 1px solid #ddd; border-radius: 6px; }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .btn { display: inline-block; padding: 10px 14px; border-radius: 8px; background: #0b5bd3; color: #fff; font-weight: 600; }
+    .btn.secondary { background: #444; }
+    footer { max-width: 960px; margin: 32px auto 0; font-size: 12px; color: #777; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>防蓝光护眼助手（BlueLight Filter Pro）| 版本迭代与商店素材生成记</h1>
+    <div class="sub">记录日期：2025-10-21 · 版本：v1.33</div>
+    <div class="cta">
+      <a class="btn" href="https://chromewebstore.google.com/detail/%E9%98%B2%E8%93%9D%E5%85%89%E6%8A%A4%E7%9C%BC%E5%8A%A9%E6%89%8B/cefolelfbacmljhmddlbmdnlakblagjj?hl=zh-CN&utm_source=ext_sidebar" target="_blank" rel="noopener">Chrome 商店页面</a>
+      <a class="btn secondary" href="uploadtochrome_v1.33.zip" download>离线安装包 v1.33（ZIP 下载）</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>今天做了什么</h2>
+      <ul>
+        <li>修复并重跑 <code>generate-localized-overlays.ps1</code>，通过模式匹配底图避免中文文件名编码问题。</li>
+        <li>将文本绘制矩形类型改为 <code>System.Drawing.RectangleF</code>，解决 <code>DrawString</code> 参数类型转换异常。</li>
+        <li>成功生成带中英文标注的本地化截图（1280×800 与 640×400），并完成目录预览校验。</li>
+        <li>将 <code>manifest.json</code> 版本从 <code>1.32</code> 升级为 <code>1.33</code>。</li>
+        <li>运行打包脚本，生成 <code>uploadtochrome/</code> 目录并压缩为 <code>uploadtochrome_v1.33.zip</code>。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>产出物清单（可复用）</h2>
+      <ul>
+        <li>商店素材：<code>store-assets/output/</code> 下的本地化截图与推广图。</li>
+        <li>上传包目录：<code>uploadtochrome/</code>（含 <code>manifest.json</code> v1.33）。</li>
+        <li>打包压缩：<code>uploadtochrome_v1.33.zip</code>。</li>
+        <li>商店链接：见本文顶部按钮。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>截图与效果预览</h2>
+      <div class="gallery">
+        <figure>
+          <img src="store-assets/output/localized-1280x800-zh-1.png" alt="本地化截图：中文 1" />
+          <figcaption>本地化截图（中文 1）：底部居中说明条幅</figcaption>
+        </figure>
+        <figure>
+          <img src="store-assets/output/localized-1280x800-en-1.png" alt="本地化截图：英文 1" />
+          <figcaption>本地化截图（英文 1）：与中文一致的布局与风格</figcaption>
+        </figure>
+        <figure>
+          <img src="store-assets/output/localized-640x400-zh-2.png" alt="本地化截图：中文 640x400" />
+          <figcaption>本地化截图（中文 640×400）：自动导出小尺寸版本</figcaption>
+        </figure>
+        <figure>
+          <img src="store-assets/output/promo-marquee-1400x560.png" alt="推广横幅 1400x560" />
+          <figcaption>推广横幅（1400×560）：商店营销位素材</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>下载与安装</h2>
+      <ul>
+        <li>Chrome 商店安装：点击顶部「Chrome 商店页面」。</li>
+        <li>离线安装：下载 <a href="uploadtochrome_v1.33.zip" download>uploadtochrome_v1.33.zip</a>，解压后打开 <code>chrome://extensions</code>，启用「开发者模式」，点击「加载已解压的扩展程序」，选择 <code>uploadtochrome/</code> 目录。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>实现细节与小记</h2>
+      <ul>
+        <li>脚本错误修复：<code>MethodArgumentConversionInvalidCastArgument</code> 来源于 <code>DrawString</code> 的 <code>point</code> 参数类型问题；将绘制矩形类型统一为 <code>RectangleF</code> 后解决。</li>
+        <li>中文文件名兼容：通过模式匹配和自动枚举方式选择底图，绕过潜在的编码/路径解析坑。</li>
+        <li>素材生成策略：底部居中说明条幅、统一背景色、同时输出 1280×800 和 640×400 两套尺寸。</li>
+        <li>打包逻辑：<code>build.ps1</code> 负责复制到 <code>uploadtochrome</code>，再用 <code>Compress-Archive</code> 生成 zip。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>自动化与性能摘要</h2>
+      <ul>
+        <li>本地静态页（store-assets.html）：INP 15 ms、CLS 0.00（详见 <a href="store-assets/output/auto/perf-store-assets.txt" target="_blank" rel="noopener">perf-store-assets.txt</a>）。</li>
+        <li>开发者站点（developer.chrome.com）：CLS 0.00（详见 <a href="store-assets/output/auto/perf-devsite.txt" target="_blank" rel="noopener">perf-devsite.txt</a>）。</li>
+        <li>自动化产出示例：<a href="store-assets/output/auto/store-assets-page.png" target="_blank" rel="noopener">页面整页截图</a>、<a href="store-assets/output/auto/output-listing.png" target="_blank" rel="noopener">素材目录截图</a>。</li>
+      </ul>
+      <p>复现方式：运行 <code>automation/mcp-start-local-servers.ps1</code> 启动本地预览；在 MCP 客户端使用 <code>automation/mcp-batch-screenshots-prompt.md</code> 模板录制与截图。</p>
+    </section>
+
+    <section>
+      <h2>后续可选动作</h2>
+      <ul>
+        <li>生成更多不同裁剪/构图的本地化截图（如移动说明条位置）。</li>
+        <li>按语言分目录并生成清单文件，便于商店多语言素材管理。</li>
+        <li>补充英文/法语等商店描述与关键词，提升搜索曝光。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2025 BlueLight Filter Pro · 文章与素材仅供传播与演示。</div>
+  </footer>
+</body>
+</html>

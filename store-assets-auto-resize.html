@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueLight Filter Pro - 自动截图尺寸处理</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; background: #f5f5f5; padding: 20px; }
+        h1 { color: #1a73e8; }
+        .section { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 30px; }
+        .preview-box { margin: 20px 0; }
+        .preview-img { border: 1px solid #ccc; margin: 10px 0; max-width: 100%; background: #eee; }
+        .download-btn { display: inline-block; background: #1a73e8; color: #fff; padding: 8px 18px; border-radius: 4px; text-decoration: none; margin: 8px 8px 8px 0; }
+        .download-btn:hover { background: #1557b0; }
+        .info { color: #666; font-size: 14px; margin: 8px 0; }
+        .input-area { margin: 20px 0; }
+        .input-area input { margin-right: 10px; }
+        .size-list { margin: 10px 0; }
+        .size-list label { margin-right: 18px; }
+    </style>
+</head>
+<body>
+    <h1>BlueLight Filter Pro - 自动截图尺寸处理</h1>
+    <div class="section">
+        <h2>上传你的实际截图</h2>
+        <div class="input-area">
+            <input type="file" id="fileInput" accept="image/*" multiple>
+            <span class="info">支持多张图片，自动生成多种尺寸，PNG/JPEG 格式。</span>
+        </div>
+        <div class="size-list">
+            <b>自动生成尺寸：</b>
+            <label><input type="checkbox" class="size-cb" value="1280x800" checked>1280x800（常规截图）</label>
+            <label><input type="checkbox" class="size-cb" value="640x400" checked>640x400（常规截图）</label>
+            <label><input type="checkbox" class="size-cb" value="440x280" checked>440x280（小型宣传图块）</label>
+            <label><input type="checkbox" class="size-cb" value="1400x560" checked>1400x560（顶部宣传图块）</label>
+        </div>
+        <div id="previewArea"></div>
+    </div>
+    <div class="section">
+        <h2>使用说明</h2>
+        <ol>
+            <li>点击或拖拽上传你的实际截图（支持多张）。</li>
+            <li>页面会自动生成多种尺寸（可勾选），并提供 PNG/JPEG 下载按钮。</li>
+            <li>下载后即可直接上传到 Chrome 商店。</li>
+        </ol>
+    </div>
+    <script>
+    function createDownloadLink(blob, filename, text) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.className = 'download-btn';
+        a.textContent = text;
+        a.onclick = () => setTimeout(() => URL.revokeObjectURL(url), 2000);
+        return a;
+    }
+
+    function processImage(file, width, height, format, callback) {
+        const img = new window.Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#fff'; // 防止透明层
+            ctx.fillRect(0, 0, width, height);
+            // 保持比例缩放并居中
+            let scale = Math.min(width / img.width, height / img.height);
+            let sw = img.width * scale;
+            let sh = img.height * scale;
+            let sx = (width - sw) / 2;
+            let sy = (height - sh) / 2;
+            ctx.drawImage(img, sx, sy, sw, sh);
+            canvas.toBlob(function(blob) {
+                callback(blob, canvas.toDataURL(format === 'jpeg' ? 'image/jpeg' : 'image/png'));
+            }, format === 'jpeg' ? 'image/jpeg' : 'image/png', 0.95);
+        };
+        img.src = URL.createObjectURL(file);
+    }
+
+    function getSelectedSizes() {
+        return Array.from(document.querySelectorAll('.size-cb:checked')).map(cb => {
+            const [w, h] = cb.value.split('x').map(Number);
+            return {w, h, label: cb.value};
+        });
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        const previewArea = document.getElementById('previewArea');
+        previewArea.innerHTML = '';
+        const sizes = getSelectedSizes();
+        files.forEach((file, idx) => {
+            const fileBox = document.createElement('div');
+            fileBox.className = 'preview-box';
+            fileBox.innerHTML = `<b>原图: ${file.name}</b><br>`;
+            previewArea.appendChild(fileBox);
+            // 预览原图
+            const img = document.createElement('img');
+            img.className = 'preview-img';
+            img.style.maxWidth = '300px';
+            img.src = URL.createObjectURL(file);
+            fileBox.appendChild(img);
+            // 生成多种尺寸和两种格式
+            sizes.forEach(size => {
+                ['png','jpeg'].forEach(fmt => {
+                    processImage(file, size.w, size.h, fmt, (blob, dataUrl) => {
+                        const preview = document.createElement('img');
+                        preview.className = 'preview-img';
+                        preview.src = dataUrl;
+                        preview.style.maxWidth = '300px';
+                        fileBox.appendChild(document.createElement('br'));
+                        fileBox.appendChild(document.createTextNode(`${size.label} (${fmt.toUpperCase()}) 预览:`));
+                        fileBox.appendChild(preview);
+                        fileBox.appendChild(createDownloadLink(blob, `${file.name.replace(/\.[^.]+$/, '')}_${size.label}.${fmt}`, `下载${size.label} ${fmt.toUpperCase()}`));
+                    });
+                });
+            });
+        });
+    });
+    // 支持动态勾选尺寸
+    document.querySelectorAll('.size-cb').forEach(cb => {
+        cb.addEventListener('change', () => {
+            document.getElementById('fileInput').dispatchEvent(new Event('change'));
+        });
+    });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueLight Filter Pro - Store Assets Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #1a73e8;
+            margin-top: 0;
+        }
+        .image-container {
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .preview-image {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+        .image-info {
+            color: #666;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>BlueLight Filter Pro - Store Assets Generator</h1>
+
+    <div class="section">
+        <h2>Localized Screenshots (各语言版本截图)</h2>
+        <div class="image-container">
+            <div id="localizedScreenshot1">
+                <h3>English Version</h3>
+                <img class="preview-image" src="https://via.placeholder.com/1280x800/1a73e8/ffffff?text=BlueLight+Filter+Pro+(English)" alt="English Screenshot">
+                <div class="image-info">Size: 1280x800px | Format: PNG</div>
+                <button onclick="downloadImage('https://via.placeholder.com/1280x800/1a73e8/ffffff?text=BlueLight+Filter+Pro+(English)', 'bluelight-en.png')">Download English Screenshot</button>
+            </div>
+        </div>
+        <div class="image-container">
+            <div id="localizedScreenshot2">
+                <h3>Chinese Version (中文版本)</h3>
+                <img class="preview-image" src="https://via.placeholder.com/1280x800/1a73e8/ffffff?text=护眼助手+(中文)" alt="Chinese Screenshot">
+                <div class="image-info">Size: 1280x800px | Format: PNG</div>
+                <button onclick="downloadImage('https://via.placeholder.com/1280x800/1a73e8/ffffff?text=护眼助手+(中文)', 'bluelight-zh.png')">Download Chinese Screenshot</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Global Screenshots (全球通用截图)</h2>
+        <div class="image-container">
+            <div id="globalScreenshot">
+                <img class="preview-image" src="https://via.placeholder.com/1280x800/34a853/ffffff?text=BlueLight+Filter+Pro+(Global)" alt="Global Screenshot">
+                <div class="image-info">Size: 1280x800px | Format: PNG</div>
+                <button onclick="downloadImage('https://via.placeholder.com/1280x800/34a853/ffffff?text=BlueLight+Filter+Pro+(Global)', 'bluelight-global.png')">Download Global Screenshot</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Promotional Tiles (宣传图块)</h2>
+        <div class="image-container">
+            <div id="smallPromo">
+                <h3>Small Promotional Tile (小型宣传图块)</h3>
+                <img class="preview-image" src="https://via.placeholder.com/440x280/fbbc04/ffffff?text=BlueLight+Filter+Pro" alt="Small Promo Tile">
+                <div class="image-info">Size: 440x280px | Format: PNG</div>
+                <button onclick="downloadImage('https://via.placeholder.com/440x280/fbbc04/ffffff?text=BlueLight+Filter+Pro', 'bluelight-small-promo.png')">Download Small Promo</button>
+            </div>
+        </div>
+        <div class="image-container">
+            <div id="largePromo">
+                <h3>Large Promotional Tile (顶部宣传图块)</h3>
+                <img class="preview-image" src="https://via.placeholder.com/1400x560/ea4335/ffffff?text=BlueLight+Filter+Pro" alt="Large Promo Tile">
+                <div class="image-info">Size: 1400x560px | Format: PNG</div>
+                <button onclick="downloadImage('https://via.placeholder.com/1400x560/ea4335/ffffff?text=BlueLight+Filter+Pro', 'bluelight-large-promo.png')">Download Large Promo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function downloadImage(url, filename) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(downloadUrl);
+            } catch (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download image. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html> 

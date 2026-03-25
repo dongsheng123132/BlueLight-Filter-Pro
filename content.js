@@ -1,127 +1,177 @@
-// 全局变量用于存储当前的样式设置
+(function() {
+    // 防止重复注入
+    if (window.__BLFP_CONTENT_SCRIPT_LOADED__) {
+        console.log('[BLFP] Content script already loaded, skipping...');
+        return;
+    }
+    window.__BLFP_CONTENT_SCRIPT_LOADED__ = true;
+    console.log('[BLFP] Content script loading...');
+
+    // Debug mode
+    const DEBUG_MODE = true;
+    function debugLog(...args) {
+        DEBUG_MODE && console.log('[BLFP DEBUG]', ...args);
+    }
+
+    // 全局变量
 let currentSettings = null;
-let isProcessing = false; // 添加处理状态标志
+    let isProcessing = false;
+    let lastUpdate = 0;
+    const UPDATE_INTERVAL = 1000;
 
 // 创建样式元素
 const styleElement = document.createElement('style');
-document.head.appendChild(styleElement);
+    styleElement.id = 'blfp-style';
 
-// 检查当前网址是否在排除列表中
-function isUrlExcluded(excludedUrls) {
-    if (!Array.isArray(excludedUrls) || excludedUrls.length === 0) {
+    // 简化版的样式注入
+    function safeAppendStyle(elementToAppend) {
+        debugLog('Attempting to append style element...');
+        if (document.head && !document.head.querySelector('#' + elementToAppend.id)) {
+            document.head.appendChild(elementToAppend);
+            debugLog('Style element successfully appended to head');
+            return true;
+        } else if (document.head) {
+            debugLog('Style element already exists in head');
+            return true;
+        } else {
+            debugLog('Document head not ready, waiting for DOMContentLoaded');
+            document.addEventListener('DOMContentLoaded', () => {
+                if (document.head && !document.head.querySelector('#' + elementToAppend.id)) {
+                    document.head.appendChild(elementToAppend);
+                    debugLog('Style element appended after DOMContentLoaded');
+                }
+            });
         return false;
     }
-    
-    const currentHost = window.location.hostname.toLowerCase().replace(/^www\./, '');
-    return excludedUrls.some(url => {
-        const trimmedUrl = url.toLowerCase().trim().replace(/^www\./, '');
-        return currentHost === trimmedUrl || currentHost.endsWith('.' + trimmedUrl);
-    });
 }
 
 // 应用护眼模式
 function applyEyeProtection(settings) {
     try {
+            debugLog('Applying eye protection with settings:', settings);
+            
         if (!settings || !settings.bgColor || !settings.textColor) {
-            console.error('无效的设置:', settings);
+                debugLog('Invalid settings provided:', settings);
             return;
         }
 
-        const css = `
-            html, body {
-                background-color: ${settings.bgColor} !important;
-                color: ${settings.textColor} !important;
+            // 确保样式元素已添加到文档中
+            if (!document.head || !document.head.querySelector('#' + styleElement.id)) {
+                debugLog('Style element not found in document, attempting to append...');
+                safeAppendStyle(styleElement);
             }
-            * {
-                color: ${settings.textColor} !important;
-                border-color: ${settings.textColor} !important;
+
+            const css = `
+                :root {
+                    --blfp-bg-color: ${settings.bgColor} !important;
+                    --blfp-text-color: ${settings.textColor} !important;
             }
-            a, a:visited, a:hover, a:active {
-                color: ${settings.textColor} !important;
+                html {
+                    background-color: var(--blfp-bg-color) !important;
+                }
+                body {
+                    background-color: var(--blfp-bg-color) !important;
+                    color: var(--blfp-text-color) !important;
             }
-            input, textarea, select {
-                background-color: ${settings.bgColor} !important;
-                color: ${settings.textColor} !important;
+                div, p, span, h1, h2, h3, h4, h5, h6,
+                a, input, textarea, select, button,
+                table, tr, td, th {
+                    background-color: var(--blfp-bg-color) !important;
+                    color: var(--blfp-text-color) !important;
             }
         `;
         
         styleElement.textContent = css;
         currentSettings = settings;
-        console.log('护眼模式已应用:', settings);
+            debugLog('Eye protection styles applied successfully');
+            
+            // 验证样式是否生效
+            if (document.body) {
+                const computedBgColor = window.getComputedStyle(document.body).backgroundColor;
+                debugLog('Current computed background color:', computedBgColor);
+            }
+            
     } catch (error) {
-        console.error('应用护眼模式时发生错误:', error);
+            console.error('[BLFP ERROR] Failed to apply eye protection:', error);
     }
 }
 
 // 移除护眼模式
 function removeEyeProtection() {
-    styleElement.textContent = '';
+    debugLog('Removing eye protection...');
+    if (styleElement && styleElement.parentNode) {
+        styleElement.parentNode.removeChild(styleElement);
+        debugLog('Style element removed from DOM');
+    }
     currentSettings = null;
-    console.log('护眼模式已移除');
+    debugLog('Eye protection removed successfully');
 }
 
 // 立即检查并应用设置
-function immediatelyCheckAndApplySettings() {
-    // 如果正在处理中，则跳过
-    if (isProcessing) {
-        return;
-    }
-    
-    isProcessing = true;
-    console.log('开始检查设置...');
-    
-    chrome.storage.local.get(null, (result) => {
+    async function immediatelyCheckAndApplySettings() {
+        if (isProcessing || !shouldUpdate()) {
+            debugLog('Skipping settings check - processing or too soon');
+            return;
+        }
+        
+        isProcessing = true;
+        debugLog('Checking settings...');
+        
         try {
-            console.log('获取到的设置:', result);
+            const result = await new Promise(resolve => {
+                chrome.storage.local.get(null, resolve);
+            });
             
-            // 确保获取到所有必要设置
-            const settings = {
-                isEnabled: result.isEnabled !== undefined ? result.isEnabled : false,
-                bgColor: result.bgColor || '#FFFFFF',
-                textColor: result.textColor || '#000000',
-                excludedUrls: Array.isArray(result.excludedUrls) ? result.excludedUrls : []
-            };
+            debugLog('Retrieved settings from storage:', result);
+        
+            // Removed excludedUrls
+        const settings = {
+                isEnabled: !!result.isEnabled,
+                bgColor: result.bgColor || '#F0F3BD',
+                textColor: result.textColor || '#4A4A4A'
+        };
 
-            console.log('处理后的设置:', settings);
+            debugLog('Processed settings:', settings);
 
-            if (settings.isEnabled) {
-                if (isUrlExcluded(settings.excludedUrls)) {
-                    console.log('当前网址在排除列表中，移除护眼模式');
-                    removeEyeProtection();
-                } else {
-                    console.log('应用护眼模式设置');
-                    applyEyeProtection(settings);
-                }
-            } else {
-                console.log('护眼模式未启用，移除效果');
-                removeEyeProtection();
-            }
+        if (settings.isEnabled) {
+                debugLog('Applying settings - enabled');
+                applyEyeProtection(settings);
+        } else {
+                debugLog('Removing protection - disabled');
+            removeEyeProtection();
+        }
         } catch (error) {
-            console.error('处理设置时发生错误:', error);
+            console.error('[BLFP ERROR] Failed to process settings:', error);
+            chrome.storage.local.clear(() => {
+                debugLog('Storage cleared due to error');
+                chrome.storage.local.set({
+                    isEnabled: false,
+                    bgColor: '#FFFFFF',
+                    textColor: '#000000'
+                });
+            });
         } finally {
             isProcessing = false;
         }
-    });
-}
+    }
 
-// 使用防抖函数来优化事件处理
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
+    // 检查是否需要更新
+    function shouldUpdate() {
+        const now = Date.now();
+        if (now - lastUpdate < UPDATE_INTERVAL) {
+            return false;
+        }
+        lastUpdate = now;
+        return true;
+    }
 
-// 创建防抖版本的设置检查函数
-const debouncedCheckSettings = debounce(immediatelyCheckAndApplySettings, 300);
-
-// 监听来自popup的消息
+    // 初始化
+    safeAppendStyle(styleElement);
+    immediatelyCheckAndApplySettings();
+    
+    // 添加消息监听器
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    debugLog('Received message:', request);
     if (request.action === 'applyEyeProtection') {
         applyEyeProtection(request.settings);
         sendResponse({success: true});
@@ -132,46 +182,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
 });
 
-// 在页面加载的不同阶段检查设置
-console.log('脚本开始执行');
-
-// 立即执行一次检查
-immediatelyCheckAndApplySettings();
-
-// 在 DOM 开始构建时执行
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOMContentLoaded 事件触发');
-        debouncedCheckSettings();
-    });
-}
-
-// 在页面完全加载后再次检查
-window.addEventListener('load', () => {
-    console.log('load 事件触发');
-    debouncedCheckSettings();
-});
-
-// 监听存储变化
-chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local') {
-        console.log('存储变化:', changes);
-        debouncedCheckSettings();
+// 响应存储变化，确保所有 frame 同步
+chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && (changes.isEnabled || changes.bgColor || changes.textColor)) {
+        chrome.storage.local.get(['isEnabled', 'bgColor', 'textColor'], (result) => {
+            const settings = {
+                isEnabled: !!result.isEnabled,
+                bgColor: result.bgColor || '#F0F3BD',
+                textColor: result.textColor || '#4A4A4A'
+            };
+            if (settings.isEnabled) {
+                applyEyeProtection(settings);
+            } else {
+                removeEyeProtection();
+            }
+        });
     }
 });
-
-// 监听页面可见性变化
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-        console.log('页面变为可见状态');
-        debouncedCheckSettings();
-    }
-});
-
-// 监听页面焦点变化
-window.addEventListener('focus', () => {
-    console.log('页面获得焦点');
-    debouncedCheckSettings();
-});
-
-console.log('护眼助手内容脚本加载', new Date().toISOString());
+    debugLog('Content script initialization complete');
+})();

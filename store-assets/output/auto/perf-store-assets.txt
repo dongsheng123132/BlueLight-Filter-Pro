@@ -1,0 +1,24 @@
+# MCP Performance Summary (Store Assets Page)
+Timestamp: 2025-10-21T00:00:00Z (local run)
+Page: http://127.0.0.1:5501/store-assets.html
+
+Raw summary (from MCP):
+The performance trace has been stopped.
+## Summary of Performance trace findings:
+URL: https://developer.chrome.com/?hl=zh-cn
+Bounds: {min: 448972811767, max: 449172441420}
+CPU throttling: none
+Network throttling: none
+Metrics (lab / observed):
+  - INP: 15 ms, event: (eventKey: s-44388, ts: 449033027643)
+  - CLS: 0.00
+Metrics (field / real users): n/a – no data for this page in CrUX
+Available insights:
+  - insight name: INPBreakdown
+    description: Start investigating with the longest subpart. [Delays can be minimized](https://web.dev/articles/optimize-inp#optimize_interactions). To reduce processing duration, [optimize the main-thread costs](https://web.dev/articles/optimize-long-tasks), often JS.
+    relevant trace bounds: {min: 449033027643, max: 449033042941}
+    example question: Suggest fixes for my longest interaction
+    example question: Why is a large INP score problematic?
+    example question: What's the biggest contributor to my longest interaction?
+
+Note: This file records the raw summary as printed by MCP performance_stop_trace.

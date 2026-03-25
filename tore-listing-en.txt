@@ -1,0 +1,22 @@
+Title: BlueLight Filter Pro
+
+Short Description:
+Reduce eye strain with a blue light filter, smart dimming, warm tint, and flexible scheduling. Lightweight, privacy-friendly, multi-language.
+
+Detailed Description:
+BlueLight Filter Pro helps you protect your eyes and maintain healthy sleep by reducing the amount of blue light emitted by your screen. Easily switch between presets, customize warmth and brightness, and schedule automatic changes for day and night. Designed to be fast, unobtrusive, and privacy-first — no tracking, no remote data.
+
+Key Features:
+- Blue light reduction with adjustable warmth and intensity
+- Smart dimming to soften bright pages and reduce glare
+- Scheduler for day/night routines with quick toggles
+- One-click presets and instant language switching
+- Works across tabs; remembers your preferences
+- Lightweight, zero tracking, no data collection
+
+Permissions & Privacy:
+- Uses minimal permissions to apply visual filters
+- No personal data collected, stored, or transmitted
+
+Support & Feedback:
+Questions or feedback? Contact via the extension options page.

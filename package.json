@@ -1,7 +1,7 @@
 {
   "name": "eye-protection-assistant",
   "version": "1.0.0",
-  "description": "护眼助手扩展",
+  "description": "Eye care assistant extension",
   "scripts": {
     "generate-icons": "node generate_icons.js"
   },

@@ -1,18 +1,26 @@
 {
   "extensionName": {
-    "message": "护眼助手",
+    "message": "防蓝光护眼助手 · BlueLight Filter Pro",
     "description": "扩展名称"
   },
   "extensionDescription": {
-    "message": "保护眼睛健康",
+    "message": "通过过滤蓝光来保护您的眼睛健康。",
     "description": "扩展描述"
   },
+  "popupTitle": {
+    "message": "防蓝光护眼助手 · BlueLight Filter Pro",
+    "description": "弹出窗口标题"
+  },
+  "statusLabel": {
+    "message": "状态：",
+    "description": "状态标签"
+  },
   "statusEnabled": {
-    "message": "状态：已启用",
+    "message": "已启用",
     "description": "启用状态文本"
   },
   "statusDisabled": {
-    "message": "状态：未启用",
+    "message": "未启用",
     "description": "禁用状态文本"
   },
   "enableButton": {
@@ -23,32 +31,66 @@
     "message": "禁用",
     "description": "禁用按钮文本"
   },
-  "backgroundColor": {
+  "backgroundColorLabel": {
     "message": "背景颜色",
-    "description": "背景颜色标签"
+    "description": "背景颜色选择器标签"
   },
-  "textColor": {
+  "textColorLabel": {
     "message": "文字颜色",
-    "description": "文字颜色标签"
+    "description": "文字颜色选择器标签"
   },
-  "presetModes": {
+  "presetModesTitle": {
     "message": "预设模式",
-    "description": "预设模式标题"
+    "description": "预设模式区域标题"
   },
-  "customModes": {
+  "customModesTitle": {
     "message": "自定义模式",
-    "description": "自定义模式标题"
+    "description": "自定义模式区域标题"
   },
-  "excludeSites": {
-    "message": "排除网站（每行一个）：",
-    "description": "排除网站标签"
+  "saveCustomModePlaceholder": {
+    "message": "保存当前设置为自定义模式",
+    "description": "自定义模式空槽位占位文本"
   },
-  "excludeSitesPlaceholder": {
-    "message": "例如：\ngoogle.com\n*.youtube.com\nmail.qq.com",
-    "description": "排除网站输入框占位符"
+  "customModeApply": {
+    "message": "应用",
+    "description": "自定义模式应用按钮"
   },
-  "excludeSitesHelp": {
-    "message": "支持通配符 *，例如 *.youtube.com 会匹配所有youtube子域名",
-    "description": "排除网站帮助文本"
-  }
-} 
+  "customModeDelete": {
+    "message": "删除",
+    "description": "自定义模式删除按钮"
+  },
+  "confirmDeleteCustomMode": {
+    "message": "确定要删除这个自定义模式吗？",
+    "description": "删除自定义模式前的确认信息"
+  },
+  "promptCustomModeName": {
+    "message": "请输入模式名称：",
+    "description": "提示输入自定义模式名称"
+  },
+  "promptCustomModeDesc": {
+    "message": "请输入模式描述：",
+    "description": "提示输入自定义模式描述"
+  },
+  "presetCinema": { "message": "影院模式", "description": "预设模式名称" },
+  "presetCinemaDesc": { "message": "适合：观看视频/电影", "description": "预设模式描述" },
+  "presetNature": { "message": "自然绿", "description": "预设模式名称" },
+  "presetNatureDesc": { "message": "适合：长时间阅读/办公", "description": "预设模式描述" },
+  "presetParchment": { "message": "羊皮纸", "description": "预设模式名称" },
+  "presetParchmentDesc": { "message": "适合：文档编辑/夜间阅读", "description": "预设模式描述" },
+  "presetSkyBlue": { "message": "天空蓝", "description": "预设模式名称" },
+  "presetSkyBlueDesc": { "message": "适合：编程/数据分析", "description": "预设模式描述" },
+  "presetGalaxyWhite": { "message": "银河白", "description": "预设模式名称" },
+  "presetGalaxyWhiteDesc": { "message": "适合：通用浏览/高对比需求", "description": "预设模式描述" },
+  "presetDeepBean": { "message": "深豆沙绿", "description": "预设模式名称" },
+  "presetDeepBeanDesc": { "message": "适合：医疗/学术研究", "description": "预设模式描述" },
+  "presetGrassGreen": { "message": "青草绿", "description": "预设模式名称" },
+  "presetGrassGreenDesc": { "message": "适合：设计/创意工作", "description": "预设模式描述" },
+  "presetWarmOrange": { "message": "暖橙光", "description": "预设模式名称" },
+  "presetWarmOrangeDesc": { "message": "适合：夜间阅读/减少蓝光", "description": "预设模式描述" },
+  "langSwitchBtn": { "message": "切换语言", "description": "语言切换按钮提示" },
+  "siteTipTitle": { "message": "站点主题提示", "description": "站点提示标题" },
+  "siteTipDescGoogle": { "message": "Google 站点有独立的暗色主题。若关闭扩展后页面仍偏黑，请在“外观（Appearance）”选择“浅色主题”或“跟随设备主题”。", "description": "Google 提示" },
+  "siteTipDescYouTube": { "message": "YouTube 站点有自己的外观设置。若关闭扩展后页面仍偏黑，请通过头像菜单 → 外观，选择“浅色主题”。", "description": "YouTube 提示" },
+  "openGoogleThemeSettings": { "message": "打开 Google", "description": "引导按钮" },
+  "openYouTubeHome": { "message": "打开 YouTube", "description": "引导按钮" }
+}

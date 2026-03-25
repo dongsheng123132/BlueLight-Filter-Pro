@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>截图模拟器 - 护眼助手</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; background-color: #ccc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .screenshot-container {
+            /* 模拟 1280x800 比例，可以调整 zoom 或 width/height 来适应你的屏幕 */
+            width: 1280px; 
+            height: 800px;
+            overflow: hidden; /* 隐藏超出部分 */
+            background-color: #fff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            position: relative; /* For absolute positioning if needed later */
+        }
+        .split-image-container, .single-image-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .split-image-container img, .single-image-container img {
+            max-width: 90%; 
+            max-height: 70vh; /* Limit image height */
+            display: block;
+            margin: 10px auto;
+            border: 1px solid #eee;
+        }
+        h2 {
+            color: #555;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        p.note {
+             color: #777;
+             font-size: 0.9em;
+             margin-top: 5px;
+        }
+        /* Basic structure - adjust zoom in browser or screenshot tool for final size */
+    </style>
+</head>
+<body>
+    <div class="screenshot-container">
+
+        <!-- 1. 展示核心效果的分割图 -->
+        <div class="split-image-container">
+            <h2>核心效果展示 (文字页面对比)</h2>
+            <img src="screenshot_split_text.png" alt="文字页面左右对比效果">
+            <p class="note">这张图片展示了开启护眼模式（右侧）前后的对比效果。</p>
+        </div>
+
+        <!-- 2. 提示：如何制作其他网站的对比图 (Google) -->
+        <!-- 你可以用这张图，结合截图工具或图片编辑器制作左右分割效果 -->
+        <!-- 
+        <div class="single-image-container">
+            <h2>效果示例 (Google - 需手动制作对比图)</h2>
+            <img src="screenshot_google_dark.png" alt="Google 页面 (可用于制作对比图)">
+            <p class="note">提示：你可以截取此页面应用护眼模式前后的样子，用图片编辑工具合并成左右对比图。</p>
+        </div>
+        -->
+
+        <!-- 3. 提示：如何制作其他网站的对比图 (YouTube) -->
+        <!-- 
+        <div class="single-image-container">
+            <h2>效果示例 (YouTube - 需手动制作对比图)</h2>
+            <img src="screenshot_youtube_dark.png" alt="YouTube 页面 (可用于制作对比图)">
+            <p class="note">提示：你可以截取此页面应用护眼模式前后的样子，用图片编辑工具合并成左右对比图。</p>
+        </div>
+        -->
+
+    </div>
+</body>
+</html> 
